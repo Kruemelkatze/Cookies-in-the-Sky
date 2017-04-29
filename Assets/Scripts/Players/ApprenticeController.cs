@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,8 +9,9 @@ public class ApprenticeController : MonoBehaviour {
 	public float Speed;
 	public float JumpForce;
 	public float distToGround;
+    public float MaxDropSpeed = -25;
 
-	private Rigidbody2D rigid;
+    private Rigidbody2D rigid;
 	private Collider2D collider2D;
 
 	public bool isGrounded = false;
@@ -34,10 +36,17 @@ public class ApprenticeController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		float verticalVelocity = rigid.velocity.y;
+		float verticalVelocity = Math.Max(rigid.velocity.y, MaxDropSpeed);
 		isGrounded = IsGrounded2D ();
 
-		if (Input.GetKey (KeyCode.LeftArrow)) {
+        if (Grid.GameLogic.IsDialogActive)
+        {
+            rigid.velocity = new Vector2(0, verticalVelocity);
+            return;
+        }
+
+
+        if (Input.GetKey (KeyCode.LeftArrow)) {
 			rigid.velocity = new Vector2 (-Speed, verticalVelocity);
 			animator.SetBool("moveLeft", true);
 			animator.SetBool("moveRight", false);
