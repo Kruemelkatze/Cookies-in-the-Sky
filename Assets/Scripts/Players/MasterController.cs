@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class MasterController : MonoBehaviour
 {
+    private SpriteRenderer sprite;
     private Rigidbody2D rigid2D;
     public float axisX, axisY, angular;
     public float Speed, AngularSpeed;
     // Use this for initialization
     void Start()
     {
+        sprite = GetComponent<SpriteRenderer>();
         rigid2D = GetComponent<Rigidbody2D>();
     }
 
@@ -22,6 +24,11 @@ public class MasterController : MonoBehaviour
 
         rigid2D.velocity = new Vector2(axisX * Speed, axisY * Speed);
         rigid2D.angularVelocity = -angular * AngularSpeed;
+
+        float rotationNorm = transform.rotation.eulerAngles.z;
+        //sprite.flipX = rotationNorm > 180;
+        sprite.flipY = rotationNorm >= 90 && rotationNorm <= 270;
+
 
         DoNotLeaveCamera();
     }

@@ -44,15 +44,6 @@ public class Cloud : MonoBehaviour
         Fadeness = Range(FadeMin, Fadeness, 1);
         sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, Fadeness);
 
-        //if (prevFadeness > FadeMin && Math.Abs(Fadeness - FadeMin) < 0.005)
-        //{
-        //    //Faded out
-        //    collider.enabled = false;
-        //} else if (prevFadeness < 1 && Fadeness >= 0.995)
-        //{
-        //    //Faded in
-
-        //}
         collider.enabled = Math.Abs(Fadeness - FadeMin) > 0.005;
 
     }
