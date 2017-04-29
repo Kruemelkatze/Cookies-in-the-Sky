@@ -19,6 +19,19 @@ public class Game : MonoBehaviour
 
     }
 
+    public void DeactivateDialog(string name)
+    {
+        var gameObject = GameObject.Find(name);
+        var dialog = gameObject.GetComponent<DialogGUI>();
+        
+        dialog.isDeactivated = true;
+    }
+
+    public void Surrendered()
+    {
+        Debug.Log("Surrendered");
+    }
+
     void Start()
     {
         //Grid.EventHub.TriggerExampleIntegerEvent(5);

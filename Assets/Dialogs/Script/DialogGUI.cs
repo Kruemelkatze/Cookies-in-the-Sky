@@ -5,6 +5,7 @@ using UnityEngine;
 public class DialogGUI : MonoBehaviour
 {
     private VIDE_Assign dialog;
+    public bool isDeactivated;
     // Use this for initialization
     void Start()
     {
@@ -19,7 +20,7 @@ public class DialogGUI : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (!isDeactivated && other.gameObject.layer == LayerMask.NameToLayer("Player"))
             StartConversation();
     }
 
@@ -31,7 +32,7 @@ public class DialogGUI : MonoBehaviour
             return;
         }
 
-        if (!VIDE_Data.isLoaded)
+        if (!VIDE_Data.isLoaded && dialog.assignedDialogue != null)
         {
             //... and use it to begin the conversation
             Grid.DiagGui.Begin(dialog);
