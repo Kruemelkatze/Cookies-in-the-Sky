@@ -18,9 +18,8 @@ public class MasterBlower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButton("Blow"))
+        if (!Grid.GameLogic.IsDialogActive && Input.GetButton("Blow"))
         {
-            Debug.Log("Blowing "+AffectedPlatforms.Count);
             foreach (var platform in AffectedPlatforms)
             {
                 var diff = platform.transform.position - transform.position;

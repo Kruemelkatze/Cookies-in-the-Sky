@@ -97,15 +97,19 @@ public class exampleUI : MonoBehaviour
             //Scroll through Player dialogue options
             if (!data.pausedAction)
             {
-                if (Input.GetKeyDown(KeyCode.UpArrow))
+                if (Input.GetKeyDown(KeyCode.DownArrow))
                 {
                     if (data.selectedOption < currentOptions.Count - 1)
                         data.selectedOption++;
                 }
-                if (Input.GetKeyDown(KeyCode.DownArrow))
+                if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     if (data.selectedOption > 0)
                         data.selectedOption--;
+                }
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    CallNext();
                 }
 
                 //Color the Player options. Blue for the selected one

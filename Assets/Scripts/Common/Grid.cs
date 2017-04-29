@@ -54,6 +54,8 @@ public class Grid : MonoBehaviour
     public static Game GameLogic;
     public static SoundManager SoundManager;
     public static Camera GameCamera;
+    public static exampleUI DiagGui;
+    public static Inventory Inventory;
 
     // when the program launches, Grid will check that all the needed elements are in place
     // that's exactly what you do in the static constructor here:
@@ -93,6 +95,12 @@ public class Grid : MonoBehaviour
         g = SafeFind("Camera");
         GameCamera = (Camera)SafeComponent(g, "Camera");
 
+        g = SafeFind("UIManager");
+        DiagGui = (exampleUI)SafeComponent(g, "exampleUI");
+
+
+        g = SafeFind("Inventory");
+        Inventory = (Inventory)SafeComponent(g, "Inventory");
     }
 
     // this has no purpose other than for developers wondering HTF you use Grid
