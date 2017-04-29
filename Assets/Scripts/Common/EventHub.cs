@@ -11,6 +11,7 @@ public class EventHub : MonoBehaviour {
 	#endregion
 
 
+
 	#region Events
 	public event VoidEvent ExampleVoidEvent;
 	public event IntegerParamEvent ExampleIntegerEvent;
