@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ApprenticeController : MonoBehaviour
 {
-
+    public bool isActive = true;
     public float Speed;
     public float JumpForce;
     public float distToGround;
@@ -27,12 +28,20 @@ public class ApprenticeController : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         collider2D = GetComponent<Collider2D>();
         distToGround = this.collider2D.bounds.extents.y;
+
+        Grid.EventHub.KillzoneTriggered += KillzoneTriggered;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float verticalVelocity = rigid.velocity.y;
+        if (!isActive)
+        {
+            rigid.velocity = Vector2.zero;
+            return;
+        }
+
+        float verticalVelocity = Math.Max(rigid.velocity.y, -20);
 
         if (Grid.GameLogic.IsDialogActive)
         {
@@ -67,5 +76,11 @@ public class ApprenticeController : MonoBehaviour
 
         // If it hits something...
         return hit != null && hit.distance > 0.1f;
+    }
+
+    void KillzoneTriggered()
+    {
+        isActive = false;
+        gameObject.SetActive(false);
     }
 }

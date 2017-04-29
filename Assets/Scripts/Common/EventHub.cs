@@ -14,6 +14,7 @@ public class EventHub : MonoBehaviour {
 
 	#region Events
 	public event VoidEvent ExampleVoidEvent;
+	public event VoidEvent KillzoneTriggered;
 	public event IntegerParamEvent ExampleIntegerEvent;
 	public event GameObjectParamEvent ExampleGameObjectEvent;
 	public event GameObjectIntegerParamEvent ExampleCombinedEvent;
@@ -25,7 +26,14 @@ public class EventHub : MonoBehaviour {
 			ExampleIntegerEvent (val);
 	}
 
-	//You get the idea on how this is done...
-	//Generic .Invoke(...) cannot be done, as the event fields cannot be accessed from outside this class :(
-	#endregion
+    public void TriggerKillzoneTriggered()
+    {
+        if (KillzoneTriggered != null)
+            KillzoneTriggered();
+    }
+
+
+    //You get the idea on how this is done...
+    //Generic .Invoke(...) cannot be done, as the event fields cannot be accessed from outside this class :(
+    #endregion
 }

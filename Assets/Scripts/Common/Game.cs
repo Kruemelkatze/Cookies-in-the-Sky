@@ -11,18 +11,12 @@ public class Game : MonoBehaviour
             return VIDE_Data.isLoaded;
         }
     }
-    //Stores all (globally) relevant game variables
-
-
-    public void UpdateItem(string name, bool val)
-    {
-
-    }
 
     void Start()
     {
         //Grid.EventHub.TriggerExampleIntegerEvent(5);
         Grid.EventHub.ExampleIntegerEvent += OnExampleIntegerEvent;
+        Grid.EventHub.KillzoneTriggered += KillzoneTriggered;
         //Grid.EventHub.TriggerExampleIntegerEvent(15);
 
     }
@@ -31,6 +25,13 @@ public class Game : MonoBehaviour
     {
         /* Unregister Events */
         Grid.EventHub.ExampleIntegerEvent -= OnExampleIntegerEvent;
+        Grid.EventHub.KillzoneTriggered -= KillzoneTriggered;
+    }
+
+
+    void KillzoneTriggered()
+    {
+        Debug.Log("Killzoned!");
     }
 
     public void OnExampleIntegerEvent(int value)
