@@ -12,17 +12,47 @@ public class Game : MonoBehaviour
         }
     }
 
+    public int DeliveredCount = 0;
+    public int MaxDeliveredCount = 3;
+
     public void DeactivateDialog(string name)
     {
         var gameObject = GameObject.Find(name);
         var dialog = gameObject.GetComponent<DialogGUI>();
-        
-        dialog.isDeactivated = true;
+
+        dialog.DeactivateCurrentDialog();
+    }
+
+    public void AddDialog(string objectSemicolonDialog)
+    {
+        string[] splitted = objectSemicolonDialog.Split(';');
+        DialogGUI dialogGui = GameObject.Find(splitted[0]).GetComponent<DialogGUI>();
+        dialogGui.PendingDialogs.Add(splitted[1]);
     }
 
     public void Surrendered()
     {
         Debug.Log("Surrendered");
+    }
+
+    public void RemoveObject(string name)
+    {
+        GameObject.Find(name).SetActive(false);
+    }
+
+    public void ActivateDeliveredObject(string name)
+    {
+        DeliveredCount++;
+        string deliveredName = name + "Delivered";
+        GameObject delivered = GameObject.Find(deliveredName);
+
+        if (delivered)
+            delivered.SetActive(true);
+
+        Grid.Inventory.RemoveObject(name);
+
+        if(DeliveredCount == MaxDeliveredCount)
+            AddDialog("MayorBroccoli;Epilogue");
     }
 
     void Start()
