@@ -4,6 +4,11 @@ using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
+
+    public GameObject cogDelivered;
+    public GameObject crankDelivered;
+    public GameObject screwDelivered;
+
     public bool IsDialogActive
     {
         get
@@ -44,11 +49,20 @@ public class Game : MonoBehaviour
     {
         Grid.SoundManager.PlaySingle(Grid.SoundManager.SuccessSound);
         DeliveredCount++;
-        string deliveredName = name + "Delivered";
-        GameObject delivered = GameObject.Find(deliveredName);
 
-        if (delivered)
-            delivered.SetActive(true);
+        switch (name)
+        {
+            case "Cog":
+                cogDelivered.SetActive(true);
+                break;
+            case "Crank":
+                crankDelivered.SetActive(true);
+                break;
+            case "Screw":
+                screwDelivered.SetActive(true);
+                break;
+        }
+
 
         Grid.Inventory.RemoveObject(name);
 
@@ -62,8 +76,15 @@ public class Game : MonoBehaviour
         Grid.EventHub.ExampleIntegerEvent += OnExampleIntegerEvent;
         Grid.EventHub.KillzoneTriggered += KillzoneTriggered;
         //Grid.EventHub.TriggerExampleIntegerEvent(15);
-        MusicSingleton.Instance.SetActive(false);
+        if (MusicSingleton.Instance != null)
+            MusicSingleton.Instance.SetActive(false);
 
+        cogDelivered = GameObject.Find("CogDelivered");
+        crankDelivered = GameObject.Find("CrankDelivered"); ;
+        screwDelivered = GameObject.Find("ScrewDelivered"); ;
+        cogDelivered.SetActive(false);
+        crankDelivered.SetActive(false);
+        screwDelivered.SetActive(false);
     }
 
     void OnDestroy()
