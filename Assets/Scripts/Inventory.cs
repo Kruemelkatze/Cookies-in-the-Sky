@@ -38,7 +38,7 @@ public class Inventory : MonoBehaviour
 
     public void GiveObject(string name)
     {
-        UpdateObject(name, true);    
+        UpdateObject(name, true);
     }
 
     public void RemoveObject(string name)
@@ -57,6 +57,11 @@ public class Inventory : MonoBehaviour
         }
 
         UpdateInventoryVisibility();
+    }
+
+    private bool IsInventoryFull()
+    {
+        return Crank && Screw && Cog;
     }
 
     public void FetchObjects()
