@@ -5,6 +5,7 @@ using UnityEngine;
 public class MusicSingleton : MonoBehaviour
 {
     private static MusicSingleton instance = null;
+    private static AudioSource source = null;
 
     public static MusicSingleton Instance
     {
@@ -15,21 +16,31 @@ public class MusicSingleton : MonoBehaviour
     {
         if (instance != null && instance != this)
         {
+            SetActive(true);
+
             Destroy(this.gameObject);
             return;
         }
         else
         {
             instance = this;
+            source = instance.GetComponent<AudioSource>();
         }
         DontDestroyOnLoad(this.gameObject);
     }
 
     public void Restart()
     {
-        var source = Instance.GetComponent<AudioSource>();
         source.Stop();
         source.Play();
+    }
+
+    public void SetActive(bool val)
+    {
+        if (val && !source.isPlaying)
+            source.Play();
+        else if (!val && source.isPlaying)
+            source.Stop();
     }
 
     // any other methods you need

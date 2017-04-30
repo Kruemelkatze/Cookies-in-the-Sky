@@ -38,6 +38,8 @@ public class Inventory : MonoBehaviour
 
     public void GiveObject(string name)
     {
+        Grid.SoundManager.PlaySingle(Grid.SoundManager.SuccessSound);
+
         UpdateObject(name, true);
     }
 

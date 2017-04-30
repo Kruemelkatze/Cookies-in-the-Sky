@@ -32,7 +32,7 @@ public class Game : MonoBehaviour
 
     public void Surrendered()
     {
-        Debug.Log("Surrendered");
+        ToGameOver();
     }
 
     public void RemoveObject(string name)
@@ -42,6 +42,7 @@ public class Game : MonoBehaviour
 
     public void ActivateDeliveredObject(string name)
     {
+        Grid.SoundManager.PlaySingle(Grid.SoundManager.SuccessSound);
         DeliveredCount++;
         string deliveredName = name + "Delivered";
         GameObject delivered = GameObject.Find(deliveredName);
@@ -51,7 +52,7 @@ public class Game : MonoBehaviour
 
         Grid.Inventory.RemoveObject(name);
 
-        if(DeliveredCount == MaxDeliveredCount)
+        if (DeliveredCount == MaxDeliveredCount)
             AddDialog("MayorBroccoli;Epilogue");
     }
 
@@ -61,7 +62,7 @@ public class Game : MonoBehaviour
         Grid.EventHub.ExampleIntegerEvent += OnExampleIntegerEvent;
         Grid.EventHub.KillzoneTriggered += KillzoneTriggered;
         //Grid.EventHub.TriggerExampleIntegerEvent(15);
-        MusicSingleton.Instance.Restart();
+        MusicSingleton.Instance.SetActive(false);
 
     }
 
@@ -78,7 +79,7 @@ public class Game : MonoBehaviour
         Invoke("ToGameOver", 3);
     }
 
-    void ToGameOver()
+    public void ToGameOver()
     {
         SceneManager.LoadScene("GameOver");
     }
