@@ -61,6 +61,7 @@ public class Game : MonoBehaviour
         Grid.EventHub.ExampleIntegerEvent += OnExampleIntegerEvent;
         Grid.EventHub.KillzoneTriggered += KillzoneTriggered;
         //Grid.EventHub.TriggerExampleIntegerEvent(15);
+        MusicSingleton.Instance.Restart();
 
     }
 
@@ -74,7 +75,12 @@ public class Game : MonoBehaviour
 
     void KillzoneTriggered()
     {
-        Debug.Log("Killzoned!");
+        Invoke("ToGameOver", 3);
+    }
+
+    void ToGameOver()
+    {
+        SceneManager.LoadScene("GameOver");
     }
 
     public void OnExampleIntegerEvent(int value)
